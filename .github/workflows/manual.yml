@@ -1,9 +1,8 @@
-name: Python Script Action
+name: Scheduled Python Script
 
 on:
-  push:
-    branches:
-      - main  # 更改为您希望触发 Action 的分支
+  schedule:
+    - cron: "0 * * * *"
 
 jobs:
   run_python_script:
@@ -14,12 +13,18 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run Python script
-        run: python chrome_driver/update_chrome_driver_release.py  # 替换为您的 Python 脚本名称
+        run: python chrome_driver/update_chrome_driver_release.py
 
-      - name: Commit JSON file
+      - name: Check for changes in JSON file
+        id: check_changes
+        run: |
+          git diff --name-only --exit-code --quiet || echo "::set-output name=changed::true"
+
+      - name: Commit and push JSON file
+        if: steps.check_changes.outputs.changed == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add chrome_driver/ChromeDriverLastVersion.json  # 替换为您的 JSON 文件名称
+          git add chrome_driver/ChromeDriverLastVersion.json
           git commit -m "Update JSON file"
           git push
