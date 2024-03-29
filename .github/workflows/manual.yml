@@ -1,0 +1,25 @@
+name: Python Script Action
+
+on:
+  push:
+    branches:
+      - main  # 更改为您希望触发 Action 的分支
+
+jobs:
+  run_python_script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run Python script
+        run: python chrome_driver/update_chrome_driver_release.py  # 替换为您的 Python 脚本名称
+
+      - name: Commit JSON file
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add chrome_driver/ChromeDriverLastVersion.json  # 替换为您的 JSON 文件名称
+          git commit -m "Update JSON file"
+          git push
