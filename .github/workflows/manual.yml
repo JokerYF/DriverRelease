@@ -21,12 +21,12 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Run Python script
-        run: python update_chrome_driver_release.py
-
       - name: Init Python Environment
         run: |
           pip install -r requirements.txt
+
+      - name: Run Python script
+        run: python update_chrome_driver_release.py
 
       - name: Check for changes in JSON file
         id: check_changes
