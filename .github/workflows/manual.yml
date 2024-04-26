@@ -22,7 +22,7 @@ jobs:
           python-version: '3.9'
 
       - name: Run Python script
-        run: python ./web_driver/chrome_driver/update_chrome_driver_release.py
+        run: python web_driver/chrome_driver/update_chrome_driver_release.py
 
       - name: Check for changes in JSON file
         id: check_changes
