@@ -1,4 +1,4 @@
-from core.core import RequestBase, JsonParser
+from core.common import RequestBase, JsonParser
 
 url = 'https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions.json'
 json_parser = JsonParser('ChromeDriverLastVersion.json')
