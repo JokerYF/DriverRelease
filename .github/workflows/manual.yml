@@ -16,6 +16,11 @@ jobs:
       - name: View File list
         run: ls -al && pwd
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
       - name: Run Python script
         run: python ./web_driver/chrome_driver/update_chrome_driver_release.py
 
