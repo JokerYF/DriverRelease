@@ -28,16 +28,16 @@ jobs:
       - name: Run Python script
         run: python update_chrome_driver_release.py
 
-      - name: Check for changes in JSON file
-        id: check_changes
-        run: |
-          git diff --name-only --exit-code --quiet || echo "::set-output name=changed::true"
+      #      - name: Check for changes in JSON file
+      #        id: check_changes
+      #        run: |
+      #          git diff --name-only --exit-code --quiet || echo "::set-output name=changed::true"
 
       - name: Commit and push JSON file
-        if: steps.check_changes.outputs.changed == 'true'
+        #        if: steps.check_changes.outputs.changed == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add ChromeDriverLastVersion.json
+          git add .
           git commit -m "Update JSON file"
           git push
