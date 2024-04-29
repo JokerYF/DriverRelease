@@ -35,6 +35,9 @@ jobs:
       - name: Update Geckodriver
         run: python update_geckodriver_release.py
 
+      - name: View File list
+        run: ls -al && pwd
+
       - name: Check for changes in JSON file
         id: check_changes
         run: |

@@ -16,4 +16,5 @@ _new_data = {
 
 if json_parser.data != _new_data:
     json_parser.set(_new_data)
+    print(_new_data)
     print('Update GeckodriverLastVersion.json Succeed!')
