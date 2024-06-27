@@ -16,7 +16,7 @@ if json_parser.get('timestamp', '') != data['timestamp']:
     print(data)
     print('Update ChromeDriverLastVersion.json Succeed!')
 
-data2 = RequestBase(url).get
+data2 = RequestBase(url2).get
 if json_parser2.get('timestamp', '') != data2['timestamp']:
     json_parser2.set(data2)
     print(data2)
