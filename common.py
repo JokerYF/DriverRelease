@@ -29,7 +29,10 @@ class JsonParser:
             return json.load(f)
 
     def get(self, key, default=''):
-        return self.data.get(key, default)
+        try:
+            return self.data.get(key, default)
+        except:
+            return default
 
     def set(self, data):
         with open(self.path, 'w+', encoding='utf-8') as f:
