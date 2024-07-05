@@ -30,7 +30,10 @@ jobs:
           pip install -r requirements.txt
 
       - name: Update ChromeDriver
-        run: python code/update_chrome_driver_release.py
+        run: python update_chrome_driver_release.py
+
+      - name: Update Geckodriver
+        run: python update_geckodriver_release.py
 
       - name: View File list
         run: ls -al && pwd
