@@ -2,10 +2,10 @@
 更新geckodriver.json
 """
 
-from common import RequestBase, JsonParser
+from code.common import RequestBase, JsonParser
 
 url = 'https://api.github.com/repos/mozilla/geckodriver/releases'
-json_parser = JsonParser('./GeckodriverLastVersion.json')
+json_parser = JsonParser('../GeckodriverLastVersion.json')
 
 data = RequestBase(url).get
 _data = [i['tag_name'] for i in data]

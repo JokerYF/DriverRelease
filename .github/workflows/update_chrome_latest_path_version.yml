@@ -1,0 +1,50 @@
+name: Scheduled Python Script
+
+on:
+  workflow_dispatch: # 手动触发
+  schedule:
+    - cron: "0 * * * *"
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  run_python_script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: View File list
+        run: ls -al && pwd
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Init Python Environment
+        run: |
+          pip install -r requirements.txt
+
+      - name: Update ChromeDriver
+        run: python code/update_chrome_driver_latest_path_version.py
+
+      - name: View File list
+        run: ls -al && pwd
+
+      - name: Check for changes in JSON file
+        id: check_changes
+        run: |
+          git diff --name-status --exit-code --quiet || echo "::set-output name=changed::true"
+
+      - name: Commit and push JSON file
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add ./*.json
+          git commit -m "Update JSON file"
+          git push
