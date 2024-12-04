@@ -41,7 +41,11 @@ jobs:
       - name: Check for changes in JSON file
         id: check_changes
         run: |
-          git diff --name-status --exit-code --quiet || echo "::set-output name=changed::true"
+              if git diff --name-status --exit-code --quiet && [ -z "$(git ls-files --others --exclude-standard -- '*.json')" ]; then
+                echo "::set-output name=changed::false"
+              else
+                echo "::set-output name=changed::true"
+              fi
 
       - name: Commit and push JSON file
         if: steps.check_changes.outputs.changed == 'true'
