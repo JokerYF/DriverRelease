@@ -6,11 +6,10 @@ from common import RequestBase, JsonParser
 
 url = 'https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions.json'
 url2 = 'https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions-per-build.json'
-json_parser = JsonParser('./ChromeDriverLastVersion.json')
-json_parser2 = JsonParser('./ChromeDriverLatestPatchVersion.json')
+json_parser = JsonParser('./ChromeDriverLatestVersion.json')
+json_parser2 = JsonParser('./ChromeDriverPastVersion.json')
 
 data = RequestBase(url).get
-
 if json_parser.get('timestamp', '') != data['timestamp']:
     json_parser.set(data)
     print(data)

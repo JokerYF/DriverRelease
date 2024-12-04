@@ -10,7 +10,7 @@ class RequestBase:
 
     @property
     def get(self):
-        return requests.get(url=self.url).json()
+        return requests.get(url=self.url, verify=False).json()
 
 
 class JsonParser:
