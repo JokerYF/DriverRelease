@@ -7,11 +7,18 @@ import requests
 class RequestBase:
     def __init__(self, url):
         self.url = url
+        self.response = requests.get(url=self.url, verify=False)
 
     @property
     def get(self):
-        return requests.get(url=self.url, verify=False).json()
+        return self.response.json()
 
+    @property
+    def ok(self):
+        __ok = self.response.ok
+        if not __ok:
+            print(self.response.text)
+        return __ok
 
 class JsonParser:
     def __init__(self, path):
